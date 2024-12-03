@@ -8,9 +8,9 @@ def normalized(a, axis=-1, order=2):
 
 N=100000
 dummy_data_multiplier=3
-N_queries = 1000
-d=8
-K=5
+N_queries = 10000
+d=32
+K=10
 
 np.random.seed(1)
 
