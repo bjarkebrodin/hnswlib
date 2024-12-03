@@ -1,0 +1,196 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-83a8254f21d2f3900734.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "hnswlib",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "epsilon_search_test::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-epsilon_search_test-Debug-8e7faaa4e09c2015f010.json",
+					"name" : "epsilon_search_test",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "example_epsilon_search::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-example_epsilon_search-Debug-f3be386765809f60319e.json",
+					"name" : "example_epsilon_search",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "example_filter::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-example_filter-Debug-98a94522554b9e8a83f4.json",
+					"name" : "example_filter",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "example_mt_filter::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-example_mt_filter-Debug-128a71d943f320657f1a.json",
+					"name" : "example_mt_filter",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "example_mt_replace_deleted::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-example_mt_replace_deleted-Debug-78064b25c5061c18c8e8.json",
+					"name" : "example_mt_replace_deleted",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "example_mt_search::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-example_mt_search-Debug-2ebdc2eedcdbeaa99127.json",
+					"name" : "example_mt_search",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "example_multivector_search::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-example_multivector_search-Debug-74a31b5d4a8fa3c502c0.json",
+					"name" : "example_multivector_search",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "example_replace_deleted::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-example_replace_deleted-Debug-c7b88aaf43721b8147f2.json",
+					"name" : "example_replace_deleted",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "example_search::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-example_search-Debug-c6e20432173e1874eec5.json",
+					"name" : "example_search",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "main::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-main-Debug-39aaef28a09d3245a54d.json",
+					"name" : "main",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "multiThreadLoad_test::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-multiThreadLoad_test-Debug-467032092263fbba9637.json",
+					"name" : "multiThreadLoad_test",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "multiThread_replace_test::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-multiThread_replace_test-Debug-fd05cc13bb165a426a2c.json",
+					"name" : "multiThread_replace_test",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "multivector_search_test::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-multivector_search_test-Debug-c6f5732e84b573af33f9.json",
+					"name" : "multivector_search_test",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "searchKnnCloserFirst_test::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-searchKnnCloserFirst_test-Debug-8a90978a326a856d022f.json",
+					"name" : "searchKnnCloserFirst_test",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "searchKnnWithFilter_test::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-searchKnnWithFilter_test-Debug-ba3828bf1b37e21812cc.json",
+					"name" : "searchKnnWithFilter_test",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test_updates::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_updates-Debug-410d79fa37a63ee752e4.json",
+					"name" : "test_updates",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/Users/bb/Research/hnswlib/cmake-build-debug",
+		"source" : "/Users/bb/Research/hnswlib"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}
