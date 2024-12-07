@@ -152,14 +152,14 @@ get_gt(
     size_t qsize,
     L2SpaceI &l2space,
     size_t vecdim,
-    vector<std::priority_queue<std::pair<int, labeltype>>> &answers,
+    vector<pq<int, labeltype> > &answers,
     size_t k) {
-    (vector<std::priority_queue<std::pair<int, labeltype >>>(qsize)).swap(answers);
+    (vector<pq<int, labeltype> >(qsize)).swap(answers);
     DISTFUNC<int> fstdistfunc_ = l2space.get_dist_func();
     cout << qsize << "\n";
     for (int i = 0; i < qsize; i++) {
         for (int j = 0; j < k; j++) {
-            answers[i].emplace(0.0f, massQA[1000 * i + j]);
+            answers[i].push(0.0f, massQA[1000 * i + j]);
         }
     }
 }
@@ -171,25 +171,24 @@ test_approx(
     size_t qsize,
     HierarchicalNSW<int> &appr_alg,
     size_t vecdim,
-    vector<std::priority_queue<std::pair<int, labeltype>>> &answers,
+    vector<pq<int, labeltype>> &answers,
     size_t k) {
     size_t correct = 0;
     size_t total = 0;
     // uncomment to test in parallel mode:
     //#pragma omp parallel for
     for (int i = 0; i < qsize; i++) {
-        std::priority_queue<std::pair<int, labeltype >> result = appr_alg.searchKnn(massQ + vecdim * i, k);
-        std::priority_queue<std::pair<int, labeltype >> gt(answers[i]);
+        pq<int, labeltype> result = appr_alg.searchKnn(massQ + vecdim * i, k);
+        pq<int, labeltype> gt(answers[i]);
         unordered_set<labeltype> g;
         total += gt.size();
 
         while (gt.size()) {
-            g.insert(gt.top().second);
-            gt.pop();
+            g.insert(gt.pop());
         }
 
         while (result.size()) {
-            if (g.find(result.top().second) != g.end()) {
+            if (g.find(result.peek()) != g.end()) {
                 correct++;
             } else {
             }
@@ -206,7 +205,7 @@ test_vs_recall(
     size_t qsize,
     HierarchicalNSW<int> &appr_alg,
     size_t vecdim,
-    vector<std::priority_queue<std::pair<int, labeltype>>> &answers,
+    vector<pq<int, labeltype>> &answers,
     size_t k) {
     vector<size_t> efs;  // = { 10,10,10,10,10 };
     for (int i = k; i < 30; i++) {
@@ -353,7 +352,7 @@ void sift_test1B() {
     }
 
 
-    vector<std::priority_queue<std::pair<int, labeltype >>> answers;
+    vector<pq<int, labeltype >> answers;
     size_t k = 1;
     cout << "Parsing gt:\n";
     get_gt(massQA, massQ, mass, vecsize, qsize, l2space, vecdim, answers, k);

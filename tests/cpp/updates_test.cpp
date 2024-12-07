@@ -111,10 +111,10 @@ test_approx(std::vector<float> &queries, size_t qsize, hnswlib::HierarchicalNSW<
     size_t total = 0;
 
     for (int i = 0; i < qsize; i++) {
-        std::priority_queue<std::pair<d_type, hnswlib::labeltype>> result = appr_alg.searchKnn((char *)(queries.data() + vecdim * i), K);
+        pq<d_type, hnswlib::labeltype> result = appr_alg.searchKnn((char *)(queries.data() + vecdim * i), K);
         total += K;
         while (result.size()) {
-            if (answers[i].find(result.top().second) != answers[i].end()) {
+            if (answers[i].find(result.minimum()) != answers[i].end()) {
                 correct++;
             } else {
             }

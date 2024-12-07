@@ -5,19 +5,20 @@ from sys import argv
 from time import perf_counter_ns as ns
 
 dim = 32
-num_elements = int(argv[1])
+num_elements = 100000
 k = 10
-nun_queries = 1000
+nun_queries = 10000
 ef_construction = 200
 ef_search = 50
 M = 16
 
 # Generating sample data
-data = np.float32(np.random.random((num_elements, dim)))
+#data = np.float32(np.random.random((num_elements, dim)))
 
 topk = np.fromfile("tests/cpp/data/gt.bin", dtype=np.int32)
-batch = np.fromfile("tests/cpp/data/batch_final.bin", dtype=np.float32).reshape(8, 10**5)
-queries = np.fromfile("tests/cpp/data/queries.bin", dtype=np.float32).reshape(8, 10**3)
+batch = np.fromfile("tests/cpp/data/batch_final.bin", dtype=np.float32).reshape(num_elements, dim)
+queries = np.fromfile("tests/cpp/data/queries.bin", dtype=np.float32).reshape(nun_queries, dim)
+data = batch
 
 print(topk)
 print(queries)

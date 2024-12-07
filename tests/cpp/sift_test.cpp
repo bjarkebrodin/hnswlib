@@ -44,16 +44,16 @@ void get_gt(
     size_t qsize,
     L2Space &l2space,
     size_t vecdim,
-    vector<std::priority_queue<std::pair<float, labeltype>>> &answers,
+    vector<pq<float, labeltype>> &answers,
     size_t k) {
     BruteforceSearch<float> bs(&l2space, vecsize);
     for (int i = 0; i < vecsize; i++) {
         bs.addPoint((void *) (mass + vecdim * i), (size_t) i);
     }
-    (vector<std::priority_queue<std::pair<float, labeltype >>>(qsize)).swap(answers);
+    (vector<pq<float, labeltype> >(qsize)).swap(answers);
     //answers.swap(vector<std::priority_queue< std::pair< float, labeltype >>>(qsize));
     for (int i = 0; i < qsize; i++) {
-        std::priority_queue<std::pair<float, labeltype >> gt = bs.searchKnn(massQ + vecdim * i, 10);
+        pq<float, labeltype> gt = bs.searchKnn(massQ + vecdim * i, 10);
         answers[i] = gt;
     }
 }
@@ -67,17 +67,17 @@ get_gt(
     size_t qsize,
     L2Space &l2space,
     size_t vecdim,
-    vector<std::priority_queue<std::pair<float, labeltype>>> &answers,
+    vector<pq<float, labeltype> > &answers,
     size_t k) {
     //answers.swap(vector<std::priority_queue< std::pair< float, labeltype >>>(qsize));
-    (vector<std::priority_queue<std::pair<float, labeltype >>>(qsize)).swap(answers);
+    (vector<pq<float, labeltype >>(qsize)).swap(answers);
     DISTFUNC<float> fstdistfunc_ = l2space.get_dist_func();
     cout << qsize << "\n";
     for (int i = 0; i < qsize; i++) {
         for (int j = 0; j < k; j++) {
             float other = fstdistfunc_(massQ + i * vecdim, mass + massQA[100 * i + j] * vecdim,
                                        l2space.get_dist_func_param());
-            answers[i].emplace(other, massQA[100 * i + j]);
+            answers[i].push(other, massQA[100 * i + j]);
         }
     }
 }
@@ -88,22 +88,21 @@ float test_approx(
     size_t qsize,
     HierarchicalNSW<float> &appr_alg,
     size_t vecdim,
-    vector<std::priority_queue<std::pair<float, labeltype>>> &answers,
+    vector<pq<float, labeltype>> &answers,
     size_t k) {
     size_t correct = 0;
     size_t total = 0;
 //#pragma omp parallel for
     for (int i = 0; i < qsize; i++) {
-        std::priority_queue<std::pair<float, labeltype >> result = appr_alg.searchKnn(massQ + vecdim * i, 10);
-        std::priority_queue<std::pair<float, labeltype >> gt(answers[i]);
+        pq<float, labeltype > result = appr_alg.searchKnn(massQ + vecdim * i, 10);
+        pq<float, labeltype > gt(answers[i]);
         unordered_set<labeltype> g;
         total += gt.size();
         while (gt.size()) {
-            g.insert(gt.top().second);
-            gt.pop();
+            g.insert(gt.pop());
         }
         while (result.size()) {
-            if (g.find(result.top().second) != g.end())
+            if (g.find(result.peek()) != g.end())
                 correct++;
             result.pop();
         }
@@ -117,7 +116,7 @@ void test_vs_recall(
     size_t qsize,
     HierarchicalNSW<float> &appr_alg,
     size_t vecdim,
-    vector<std::priority_queue<std::pair<float, labeltype>>> &answers,
+    vector<pq<float, labeltype>> &answers,
     size_t k) {
     //vector<size_t> efs = { 1,2,3,4,6,8,12,16,24,32,64,128,256,320 };//  = ; { 23 };
     vector<size_t> efs;
@@ -250,7 +249,7 @@ void sift_test() {
     //get_knn_quality(massA, vecsize, maxn, appr_alg);
     //return;
 
-    vector<std::priority_queue<std::pair<float, labeltype >>> answers;
+    vector<pq<float, labeltype >> answers;
     size_t k = 10;
     cout << "Loading gt\n";
     //get_gt(mass, massQ, vecsize, qsize, l2space, vecdim, answers,k);

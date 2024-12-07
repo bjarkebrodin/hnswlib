@@ -120,6 +120,7 @@ static bool AVX512Capable() {
 #include <vector>
 #include <iostream>
 #include <string.h>
+#include "pq.h"
 
 namespace hnswlib {
 typedef size_t labeltype;
@@ -188,11 +189,11 @@ class AlgorithmInterface {
  public:
     virtual void addPoint(const void *datapoint, labeltype label, bool replace_deleted = false) = 0;
 
-    virtual std::priority_queue<std::pair<dist_t, labeltype>>
+    virtual pq<dist_t, labeltype>&
         searchKnn(const void*, size_t, BaseFilterFunctor* isIdAllowed = nullptr) const = 0;
 
     // Return k nearest neighbor in the order of closer fist
-    virtual std::vector<std::pair<dist_t, labeltype>>
+    virtual std::vector<std::pair<dist_t, labeltype>>&
         searchKnnCloserFirst(const void* query_data, size_t k, BaseFilterFunctor* isIdAllowed = nullptr) const;
 
     virtual void saveIndex(const std::string &location) = 0;
@@ -201,7 +202,7 @@ class AlgorithmInterface {
 };
 
 template<typename dist_t>
-std::vector<std::pair<dist_t, labeltype>>
+std::vector<std::pair<dist_t, labeltype>>&
 AlgorithmInterface<dist_t>::searchKnnCloserFirst(const void* query_data, size_t k,
                                                  BaseFilterFunctor* isIdAllowed) const {
     std::vector<std::pair<dist_t, labeltype>> result;
@@ -212,8 +213,7 @@ AlgorithmInterface<dist_t>::searchKnnCloserFirst(const void* query_data, size_t 
         size_t sz = ret.size();
         result.resize(sz);
         while (!ret.empty()) {
-            result[--sz] = ret.top();
-            ret.pop();
+            result[--sz] = std::make_pair(ret.minimum(), ret.pop());
         }
     }
 

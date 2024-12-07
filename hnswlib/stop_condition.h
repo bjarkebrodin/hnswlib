@@ -149,7 +149,7 @@ class MultiVectorSearchStopCondition : public BaseSearchStopCondition<dist_t> {
     size_t num_docs_to_search_;
     size_t ef_collection_;
     std::unordered_map<DOCIDTYPE, size_t> doc_counter_;
-    std::priority_queue<std::pair<dist_t, DOCIDTYPE>> search_results_;
+    pq<dist_t, DOCIDTYPE> search_results_;
     BaseMultiVectorSpace<DOCIDTYPE>& space_;
 
  public:
@@ -168,7 +168,7 @@ class MultiVectorSearchStopCondition : public BaseSearchStopCondition<dist_t> {
         if (doc_counter_[doc_id] == 0) {
             curr_num_docs_ += 1;
         }
-        search_results_.emplace(dist, doc_id);
+        search_results_.push(dist, doc_id);
         doc_counter_[doc_id] += 1;
     }
 
@@ -199,9 +199,9 @@ class MultiVectorSearchStopCondition : public BaseSearchStopCondition<dist_t> {
     void filter_results(std::vector<std::pair<dist_t, labeltype >> &candidates) override {
         while (curr_num_docs_ > num_docs_to_search_) {
             dist_t dist_cand = candidates.back().first;
-            dist_t dist_res = search_results_.top().first;
+            dist_t dist_res = search_results_.minimum();
             assert(dist_cand == dist_res);
-            DOCIDTYPE doc_id = search_results_.top().second;
+            DOCIDTYPE doc_id = search_results_.peek();
             doc_counter_[doc_id] -= 1;
             if (doc_counter_[doc_id] == 0) {
                 curr_num_docs_ -= 1;

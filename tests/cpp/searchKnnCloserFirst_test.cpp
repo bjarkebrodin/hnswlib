@@ -51,7 +51,7 @@ void test() {
         assert(gd.size() == res.size());
         size_t t = gd.size();
         while (!gd.empty()) {
-            assert(gd.top() == res[--t]);
+            assert(gd.peek() == res[--t].second);
             gd.pop();
         }
     }
@@ -62,7 +62,7 @@ void test() {
         assert(gd.size() == res.size());
         size_t t = gd.size();
         while (!gd.empty()) {
-            assert(gd.top() == res[--t]);
+            assert(gd.peek() == res[--t].second);
             gd.pop();
         }
     }

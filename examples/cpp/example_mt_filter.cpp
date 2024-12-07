@@ -106,10 +106,9 @@ int main() {
     int k = 10;
     std::vector<hnswlib::labeltype> neighbors(max_elements * k);
     ParallelFor(0, max_elements, num_threads, [&](size_t row, size_t threadId) {
-        std::priority_queue<std::pair<float, hnswlib::labeltype>> result = alg_hnsw->searchKnn(data + dim * row, k, &pickIdsDivisibleByTwo);
+        pq<float, hnswlib::labeltype> result = alg_hnsw->searchKnn(data + dim * row, k, &pickIdsDivisibleByTwo);
         for (int i = 0; i < k; i++) {
-            hnswlib::labeltype label = result.top().second;
-            result.pop();
+            hnswlib::labeltype label = result.pop();
             neighbors[row * k + i] = label;
         }
     });

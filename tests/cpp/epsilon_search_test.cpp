@@ -61,18 +61,17 @@ int main() {
             hnsw_labels.insert(label);
             assert(dist >=0 && dist <= epsilon2);
         }
-        std::priority_queue<std::pair<float, hnswlib::labeltype>> result_brute =
+        pq<float, hnswlib::labeltype> result_brute =
             alg_brute->searchKnn(query_data, max_elements);
         
         // check recall
         std::unordered_set<hnswlib::labeltype> gt_labels;
         while (!result_brute.empty()) {
-            float dist = result_brute.top().first;
-            hnswlib::labeltype label = result_brute.top().second;
+            float dist = result_brute.minimum();
+            hnswlib::labeltype label = result_brute.pop();
             if (dist < epsilon2) {
                 gt_labels.insert(label);
             }
-            result_brute.pop();
         }
         float correct = 0;
         for (const auto& hnsw_label: hnsw_labels) {

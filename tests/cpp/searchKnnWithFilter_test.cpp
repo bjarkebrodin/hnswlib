@@ -67,8 +67,8 @@ void test_some_filtering(hnswlib::BaseFilterFunctor& filter_func, size_t div_num
         assert(gd.size() == res.size());
         size_t t = gd.size();
         while (!gd.empty()) {
-            assert(gd.top() == res[--t]);
-            assert((gd.top().second % div_num) == 0);
+            assert(gd.peek() == res[--t].second);
+            assert((gd.peek() % div_num) == 0);
             gd.pop();
         }
     }
@@ -81,8 +81,8 @@ void test_some_filtering(hnswlib::BaseFilterFunctor& filter_func, size_t div_num
         assert(gd.size() == res.size());
         size_t t = gd.size();
         while (!gd.empty()) {
-            assert(gd.top() == res[--t]);
-            assert((gd.top().second % div_num) == 0);
+            assert(gd.peek() == res[--t].second);
+            assert((gd.peek() % div_num) == 0);
             gd.pop();
         }
     }

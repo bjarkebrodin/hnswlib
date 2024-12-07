@@ -12,3 +12,6 @@ var/
 **.DS_Store
 *.pyc
 .python-version
+**/*.bin
+**/*.log
+**/*.*vecs
